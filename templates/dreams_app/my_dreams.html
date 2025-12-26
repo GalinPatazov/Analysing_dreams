@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}My Dreams{% endblock %}
+
+{% block content %}
+<h1>My Dreams</h1>
+
+{% if dreams %}
+    <ul>
+        {% for dream in dreams %}
+            <li>
+                <strong>{{ dream.created_at|date:"Y-m-d H:i" }}</strong><br>
+                {{ dream.text|truncatechars:100 }}
+
+                <br><br>
+
+{#                <a href="#">#}
+{#                    <button>Details</button>#}
+{#                </a>#}
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no dreams yet.</p>
+{% endif %}
+
+{% endblock %}

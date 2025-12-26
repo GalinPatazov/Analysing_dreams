@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Dream AI</h1>
+{% extends 'base.html' %}
 
-    {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}</p>
-        <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'register' %}">Register</a>
-    {% endif %}
-</body>
-</html>
+{% block title %}Home | Dream AI{% endblock %}
+
+{% block content %}
+<h1>Welcome to Dream AI</h1>
+<p>Track and analyze your dreams.</p>
+{% endblock %}
