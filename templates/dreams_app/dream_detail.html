@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dream-detail">
+
+    <h2>Dream Details</h2>
+
+    <h3>Original Dream</h3>
+    <p>{{ dream.text }}</p>
+
+    <h3>Analysis</h3>
+    {% if dream.analysis_text %}
+        <p>{{ dream.analysis_text }}</p>
+    {% else %}
+        <p><em>No analysis yet.</em></p>
+    {% endif %}
+
+    <h3>Generated Image</h3>
+    {% if dream.image %}
+        <img src="{{ dream.image }}" alt="Dream image" style="max-width:100%;">
+    {% else %}
+        <p><em>No image generated yet.</em></p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'dreams_app:my_dreams' %}">← Back to My Dreams</a>
+
+</div>
+{% endblock %}
