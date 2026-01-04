@@ -4,6 +4,8 @@ from django.views.generic import CreateView
 from .models import Dream
 from .forms import DreamForm
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
 
 
 class DreamCreateView(LoginRequiredMixin, CreateView):
@@ -29,3 +31,18 @@ class DreamListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Dream.objects.filter(user=self.request.user)
+
+
+@login_required
+def dream_detail(request, pk):
+    dream = get_object_or_404(
+        Dream,
+        pk=pk,
+        user=request.user
+    )
+
+    return render(
+        request,
+        'dreams_app/dream_detail.html',
+        {'dream': dream}
+    )

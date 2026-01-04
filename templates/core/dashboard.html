@@ -3,13 +3,14 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h1>Dashboard</h1>
+    <h1>Dashboard</h1>
 
-<a href="{% url 'new_dream' %}">
-    <button>New Dream</button>
-</a>
+    <a href="{% url 'dreams_app:new_dream' %}">
+        <button>New Dream</button>
+    </a>
 
-<a href="{% url 'my_dreams' %}">
-    <button>My Dreams</button>
-</a>
+    <a href="{% url 'dreams_app:my_dreams' %}">
+        <button>My Dreams</button>
+    </a>
+
 {% endblock %}

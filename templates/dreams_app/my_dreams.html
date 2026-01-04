@@ -14,9 +14,9 @@
 
                 <br><br>
 
-{#                <a href="#">#}
-{#                    <button>Details</button>#}
-{#                </a>#}
+                <a href="#">
+                    <a href="{% url 'dreams_app:detail' dream.id %}">Details</a>
+                </a>
             </li>
             <hr>
         {% endfor %}
