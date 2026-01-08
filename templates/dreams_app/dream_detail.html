@@ -10,14 +10,16 @@
 
     <h3>Analysis</h3>
     {% if dream.analysis_text %}
-        <p>{{ dream.analysis_text }}</p>
+        <p>{{ dream.analysis_text|linebreaks }}</p>
     {% else %}
         <p><em>No analysis yet.</em></p>
     {% endif %}
 
-    <h3>Generated Image</h3>
+    <h3>Dream Image</h3>
     {% if dream.image %}
-        <img src="{{ dream.image }}" alt="Dream image" style="max-width:100%;">
+        <img src="{{ dream.image }}"
+             alt="Dream image"
+             style="max-width:100%; border-radius:8px;">
     {% else %}
         <p><em>No image generated yet.</em></p>
     {% endif %}
