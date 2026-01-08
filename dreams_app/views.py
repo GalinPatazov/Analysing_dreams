@@ -6,6 +6,8 @@ from .forms import DreamForm
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
+from .ai_services import analyze_dream
+from .image_services import generate_dream_image
 
 
 class DreamCreateView(LoginRequiredMixin, CreateView):
@@ -17,8 +19,10 @@ class DreamCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         dream = form.save(commit=False)
         dream.user = self.request.user
-        dream.analysis_text = "AI analysis will be here (coming soon)"
-        dream.image = "https://via.placeholder.com/400"
+
+        dream.analysis_text = analyze_dream(dream.text)
+        dream.image = generate_dream_image(dream.text)
+
         dream.save()
         return super().form_valid(form)
 
