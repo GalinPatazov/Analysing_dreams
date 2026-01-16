@@ -131,3 +131,6 @@ LOGOUT_REDIRECT_URL = 'home'
 STATIC_URL = 'static/'
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
