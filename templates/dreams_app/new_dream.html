@@ -1,14 +1,15 @@
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block title %}New Dream{% endblock %}
+{% block title %}New Dream{% endblock %}
 
-    {% block content %}
-    <h1>New Dream</h1>
+{% block content %}
+<h1>New Dream</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Generate</button>
-    </form>
-        <a href="{% url 'dashboard' %}" class="btn">Back to Dashboard</a>
-    {% endblock %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generate</button>
+</form>
+
+<a href="{% url 'dashboard' %}" class="btn">Back to Dashboard</a>
+{% endblock %}

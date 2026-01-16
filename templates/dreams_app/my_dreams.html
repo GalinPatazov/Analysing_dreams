@@ -9,7 +9,7 @@
     <ul>
         {% for dream in dreams %}
             <li>
-                <strong>{{ dream.text|truncatechars:100 }}</strong><br>
+                <strong>{{ dream.name }}</strong><br>
                 {{ dream.created_at|date:"Y-m-d H:i" }}
 
                 <br><br>

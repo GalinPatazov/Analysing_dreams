@@ -1,25 +1,42 @@
+import time
+
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.http import Http404
 from .models import Dream
 from .ai_services import analyze_dream, generate_dream_image
+from django.core.files.base import ContentFile
 
 # Create a new dream
 class DreamCreateView(LoginRequiredMixin, CreateView):
     model = Dream
-    fields = ['name', 'text']  # name + text
+    fields = ['name', 'text']
     template_name = 'dreams_app/new_dream.html'
     success_url = reverse_lazy('dreams_app:my_dreams')
 
     def form_valid(self, form):
         dream = form.save(commit=False)
         dream.user = self.request.user
+
+        # 1. Generate analysis text
         dream.analysis_text = analyze_dream(dream.text)
-        dream.image = generate_dream_image(dream.text)
+
+        # 2. Generate image (bytes)
+        image_bytes = generate_dream_image(dream.text)
+
+        # 3. Save image properly
+        if image_bytes:
+            filename = f"dream_{self.request.user.id}_{int(time.time())}.png"
+            dream.image.save(
+                filename,
+                ContentFile(image_bytes),
+                save=False
+            )
+
         dream.save()
-        return super().form_valid(form)
+        return redirect(self.success_url)
 
 # List only current user's dreams
 class DreamListView(LoginRequiredMixin, ListView):
