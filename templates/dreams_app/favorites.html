@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}My Favorites{% endblock %}
+
+{% block content %}
+<h1>My Favorite Dreams</h1>
+
+{% if favorites %}
+    <ul>
+        {% for fav in favorites %}
+            <li>
+                <strong>{{ fav.dream.name }}</strong> (Saved on {{ fav.created_at|date:"Y-m-d" }})<br>
+                <a href="{% url 'dreams_app:detail' fav.dream.id %}">View Dream</a> |
+                <a href="{% url 'dreams_app:toggle_favorite' fav.dream.id %}" style="color: red;">Remove</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't favorited any dreams yet.</p>
+{% endif %}
+
+<a href="{% url 'dreams_app:my_dreams' %}" class="btn">Back to My Dreams</a>
+{% endblock %}

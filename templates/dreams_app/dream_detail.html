@@ -10,6 +10,13 @@
     <p>{{ dream.name }}</p>
     <p>{{ dream.text }}</p>
 
+    <a href="{% url 'dreams_app:toggle_favorite' dream.pk %}" class="btn">
+        {% if is_favorite %}
+            Remove from Favorites
+        {% else %}
+            Add to Favorites
+        {% endif %}
+    </a>
 
     <h3>Analysis</h3>
     {% if dream.analysis_text %}
@@ -30,6 +37,9 @@
              style="max-width:100%; border-radius:8px;">
     {% endif %}
 
+    <br><br>
+    <a href="{% url 'dreams_app:edit_dream' dream.pk %}" class="btn">Edit Dream</a>
+    <a href="{% url 'dreams_app:delete_dream' dream.pk %}" class="btn" style="color: red; margin-left: 10px;">Delete Dream</a>
     <br><br>
     <a href="{% url 'dreams_app:my_dreams' %}">← Back to My Dreams</a>
 
