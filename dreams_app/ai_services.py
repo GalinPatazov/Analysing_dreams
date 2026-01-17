@@ -24,7 +24,7 @@ def generate_dream_image(dream_text):
         response = client.images.generate(
             model="dall-e-3",
             prompt=f"A surrealistic digital art depiction of this dream: {dream_text}",
-            size="512x512",
+            size="1024x1024",
             n=1,
         )
         image_url = response.data[0].url
