@@ -1,9 +1,31 @@
-<h2>Register</h2>
+{% extends 'base.html' %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+{% block title %}Register{% endblock %}
 
-<a href="{% url 'login' %}">Already have an account?</a>
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    <h2 class="text-center">Create Account</h2>
+    
+    <form method="post" class="mt-2">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error-message" style="color: var(--danger); font-size: 0.9rem;">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+    </form>
+    
+    <div class="text-center mt-2">
+        <p>Already have an account? <a href="{% url 'login' %}" style="color: var(--primary);">Login here</a></p>
+    </div>
+</div>
+{% endblock %}

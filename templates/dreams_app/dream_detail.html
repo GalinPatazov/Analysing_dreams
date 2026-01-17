@@ -1,47 +1,59 @@
 {% extends "base.html" %}
-
 {% load static %}
-
 
 {% block content %}
 <div class="dream-detail">
+    <div class="mb-3">
+        <h1>{{ dream.name }}</h1>
+        <div class="dream-meta">
+            <span>📅 {{ dream.created_at|date:"F j, Y" }}</span>
+            <span>⏰ {{ dream.created_at|date:"g:i A" }}</span>
+        </div>
+    </div>
 
-    <h2>Dream Details</h2>
-    <p>{{ dream.name }}</p>
-    <p>{{ dream.text }}</p>
+    <div class="dream-text">
+        <h3>Dream Description</h3>
+        <p>{{ dream.text|linebreaks }}</p>
+    </div>
 
-    <a href="{% url 'dreams_app:toggle_favorite' dream.pk %}" class="btn">
-        {% if is_favorite %}
-            Remove from Favorites
+    <div class="mt-3">
+        <a href="{% url 'dreams_app:toggle_favorite' dream.pk %}" class="btn btn-secondary">
+            {% if is_favorite %}
+                ⭐ Remove from Favorites
+            {% else %}
+                ☆ Add to Favorites
+            {% endif %}
+        </a>
+    </div>
+
+    <div class="mt-3">
+        <h3>AI Analysis</h3>
+        {% if dream.analysis_text %}
+            <div class="card">
+                <p>{{ dream.analysis_text|linebreaks }}</p>
+            </div>
         {% else %}
-            Add to Favorites
+            <p><em>No analysis available. Try regenerating the analysis.</em></p>
         {% endif %}
-    </a>
+    </div>
 
-    <h3>Analysis</h3>
-    {% if dream.analysis_text %}
-        <p>{{ dream.analysis_text|linebreaks }}</p>
-    {% else %}
-        <p><em>No analysis yet.</em></p>
-    {% endif %}
+    <div class="mt-3">
+        <h3>Dream Visualization</h3>
+        {% if dream.image %}
+            <img src="{{ dream.image.url }}"
+                 alt="Dream visualization"
+                 class="dream-image">
+        {% else %}
+            <img src="{% static 'dreams_app/images/placeholder.png' %}"
+                 alt="Dream placeholder"
+                 class="dream-image">
+        {% endif %}
+    </div>
 
-    <h3>Dream Image</h3>
-
-    {% if dream.image %}
-        <img src="{{ dream.image.url }}"
-             alt="Dream image"
-             style="max-width:100%; border-radius:8px;">
-    {% else %}
-        <img src="{% static 'dreams_app/images/placeholder.png' %}"
-             alt="Placeholder image"
-             style="max-width:100%; border-radius:8px;">
-    {% endif %}
-
-    <br><br>
-    <a href="{% url 'dreams_app:edit_dream' dream.pk %}" class="btn">Edit Dream</a>
-    <a href="{% url 'dreams_app:delete_dream' dream.pk %}" class="btn" style="color: red; margin-left: 10px;">Delete Dream</a>
-    <br><br>
-    <a href="{% url 'dreams_app:my_dreams' %}">← Back to My Dreams</a>
-
+    <div class="dream-actions mt-3">
+        <a href="{% url 'dreams_app:edit_dream' dream.pk %}" class="btn btn-primary">Edit Dream</a>
+        <a href="{% url 'dreams_app:delete_dream' dream.pk %}" class="btn btn-danger">Delete Dream</a>
+        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">← Back to My Dreams</a>
+    </div>
 </div>
 {% endblock %}

@@ -3,22 +3,39 @@
 {% block title %}My Favorites{% endblock %}
 
 {% block content %}
-<h1>My Favorite Dreams</h1>
+<div class="card">
+    <h1>⭐ My Favorite Dreams</h1>
 
-{% if favorites %}
-    <ul>
-        {% for fav in favorites %}
-            <li>
-                <strong>{{ fav.dream.name }}</strong> (Saved on {{ fav.created_at|date:"Y-m-d" }})<br>
-                <a href="{% url 'dreams_app:detail' fav.dream.id %}">View Dream</a> |
-                <a href="{% url 'dreams_app:toggle_favorite' fav.dream.id %}" style="color: red;">Remove</a>
-            </li>
-            <hr>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>You haven't favorited any dreams yet.</p>
-{% endif %}
+    {% if favorites %}
+        <div class="dream-list">
+            {% for fav in favorites %}
+                <div class="dream-item">
+                    <h3>{{ fav.dream.name }}</h3>
+                    <div class="dream-meta">
+                        <span>📅 Dream Date: {{ fav.dream.created_at|date:"F j, Y" }}</span>
+                        <span>⭐ Favorited: {{ fav.created_at|date:"F j, Y" }}</span>
+                    </div>
 
-<a href="{% url 'dreams_app:my_dreams' %}" class="btn">Back to My Dreams</a>
+                    {% if fav.dream.analysis_text %}
+                        <p>{{ fav.dream.analysis_text|truncatewords:30 }}</p>
+                    {% endif %}
+
+                    <div class="dream-actions">
+                        <a href="{% url 'dreams_app:detail' fav.dream.id %}" class="btn btn-primary">View Dream</a>
+                        <a href="{% url 'dreams_app:toggle_favorite' fav.dream.id %}" class="btn btn-danger">Remove Favorite</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center mt-3">
+            <p class="mb-2">You haven't favorited any dreams yet.</p>
+            <p>Start by exploring your dreams and clicking the ⭐ button!</p>
+        </div>
+    {% endif %}
+
+    <div class="mt-3">
+        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">← Back to My Dreams</a>
+    </div>
+</div>
 {% endblock %}
