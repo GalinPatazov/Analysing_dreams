@@ -3,26 +3,43 @@
 {% block title %}My Dreams{% endblock %}
 
 {% block content %}
-<h1>My Dreams</h1>
+<div class="card">
+    <h1>My Dreams</h1>
 
-{% if dreams %}
-    <ul>
-        {% for dream in dreams %}
-            <li>
-                <strong>{{ dream.name }}</strong><br>
-                {{ dream.created_at|date:"Y-m-d H:i" }}
+    {% if dreams %}
+        <div class="dream-list">
+            {% for dream in dreams %}
+                <div class="dream-item">
+                    <h3>{{ dream.name }}</h3>
+                    <div class="dream-meta">
+                        <span>📅 {{ dream.created_at|date:"F j, Y" }}</span>
+                        <span>⏰ {{ dream.created_at|date:"g:i A" }}</span>
+                    </div>
 
-                <br><br>
+                    {% if dream.analysis_text %}
+                        <p>{{ dream.analysis_text|truncatewords:30 }}</p>
+                    {% else %}
+                        <p><em>No analysis yet.</em></p>
+                    {% endif %}
 
-                <a href="#">
-                    <a href="{% url 'dreams_app:detail' dream.id %}">Details</a>
-                </a>
-            </li>
-            <hr>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>You have no dreams yet.</p>
-{% endif %}
-<a href="{% url 'dashboard' %}" class="btn">Back to Dashboard</a>
+                    <div class="dream-actions">
+                        <a href="{% url 'dreams_app:detail' dream.id %}" class="btn btn-primary">View Details</a>
+                        {% if dream.is_favorite %}
+                            <span class="btn btn-secondary">⭐ Favorited</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center mt-3">
+            <p class="mb-2">You have no dreams recorded yet.</p>
+            <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary">Record Your First Dream</a>
+        </div>
+    {% endif %}
+
+    <div class="mt-3">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+</div>
 {% endblock %}

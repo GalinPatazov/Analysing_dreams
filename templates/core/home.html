@@ -3,6 +3,71 @@
 {% block title %}Home | Dream AI{% endblock %}
 
 {% block content %}
-<h1>Welcome to Dream AI</h1>
-<p>Track and analyze your dreams.</p>
+<div class="hero-section text-center">
+    <h1>Unlock the Mysteries of Your Dreams</h1>
+    <p class="mb-3">AI-powered dream analysis and visualization to help you understand your subconscious mind.</p>
+
+    {% if not user.is_authenticated %}
+        <a href="{% url 'register' %}" class="btn btn-primary btn-large">Start Your Journey</a>
+        <a href="{% url 'login' %}" class="btn btn-outline">Sign In</a>
+    {% else %}
+        <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary btn-large">Record New Dream</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline">Go to Dashboard</a>
+    {% endif %}
+</div>
+
+<div class="features-grid mt-3">
+    <div class="card">
+        <h3>🌙 Record Dreams</h3>
+        <p>Capture your dreams immediately upon waking to preserve details.</p>
+    </div>
+
+    <div class="card">
+        <h3>🤖 AI Analysis</h3>
+        <p>Get insights into symbols, emotions, and patterns in your dreams.</p>
+    </div>
+
+    <div class="card">
+        <h3>🎨 Visualization</h3>
+        <p>Generate images based on your dream descriptions.</p>
+    </div>
+
+    <div class="card">
+        <h3>📊 Dream Journal</h3>
+        <p>Track patterns and progress over time in your personal dream journal.</p>
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: var(--white);
+        padding: 4rem 2rem;
+        border-radius: var(--radius);
+        margin-bottom: 3rem;
+    }
+
+    .hero-section h1 {
+        color: var(--white);
+        -webkit-text-fill-color: var(--white);
+        margin-bottom: 1rem;
+    }
+
+    .hero-section p {
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    .btn-large {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+</style>
 {% endblock %}

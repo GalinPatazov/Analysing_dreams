@@ -1,31 +1,53 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Dream AI{% endblock %}</title>
-    {% load static %}
-{#    <link rel="stylesheet" href="{% static 'dreams_app/style.css' %}">#}
+
+    <link rel="stylesheet" href="{% static 'dreams_app/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="{% url 'home' %}">✨ Dream<span>AI</span></a>
+                </div>
+                <div class="nav-links">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
 
-<nav>
-    <a href="{% url 'home' %}">Home</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+                        <a href="{% url 'dreams_app:my_dreams' %}" class="nav-link">My Dreams</a>
+                        <a href="{% url 'dreams_app:favorites' %}" class="nav-link">Favorites</a>
+                        <div class="user-menu">
+                            <span class="username">Hi, {{ user.username }}</span>
+                            <a href="{% url 'logout' %}" class="btn btn-outline">Logout</a>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
 
-    {% if user.is_authenticated %}
-        <a href="{% url 'dashboard' %}">Dashboard</a>
-        <a href="{% url 'dreams_app:favorites' %}">Favorites</a>
-        <a href="{% url 'logout' %}">Logout</a>
-        <a href="{% url 'profile' %}">Profile</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'register' %}">Register</a>
-    {% endif %}
-</nav>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
 
-<hr>
-
-{% block content %}
-{% endblock %}
-
+    <footer class="main-footer">
+        <div class="container">
+            <p>Dream AI &copy; 2024. Unlock the mysteries of your subconscious.</p>
+        </div>
+    </footer>
 </body>
 </html>

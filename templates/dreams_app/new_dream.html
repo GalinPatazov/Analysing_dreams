@@ -3,13 +3,32 @@
 {% block title %}New Dream{% endblock %}
 
 {% block content %}
-<h1>New Dream</h1>
+<div class="card">
+    <h1>Record New Dream</h1>
+    <p class="mb-2">Describe your dream in detail for AI analysis and visualization.</p>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Generate</button>
-</form>
+    <form method="post" enctype="multipart/form-data" class="mt-2">
+        {% csrf_token %}
 
-<a href="{% url 'dashboard' %}" class="btn">Back to Dashboard</a>
+        <div class="form-group">
+            <label for="id_name">Dream Title</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_text">Dream Description</label>
+            {{ form.text }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_image">Upload Dream Image (Optional)</label>
+            {{ form.image }}
+        </div>
+
+        <div class="dream-actions">
+            <button type="submit" class="btn btn-primary">✨ Analyze Dream</button>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

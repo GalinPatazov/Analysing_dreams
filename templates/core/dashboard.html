@@ -3,14 +3,37 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <h1>Dashboard</h1>
+<div class="text-center mb-3">
+    <h1>Welcome to Your Dream Dashboard</h1>
+    <p class="text-center">Track, analyze, and understand your dreams</p>
+</div>
 
-    <a href="{% url 'dreams_app:new_dream' %}">
-        <button>New Dream</button>
-    </a>
+<div class="dashboard-grid">
+    <div class="dashboard-card">
+        <div class="dashboard-icon">🌙</div>
+        <h3>Record New Dream</h3>
+        <p>Add and analyze a new dream</p>
+        <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary mt-2">New Dream</a>
+    </div>
 
-    <a href="{% url 'dreams_app:my_dreams' %}">
-        <button>My Dreams</button>
-    </a>
+    <div class="dashboard-card">
+        <div class="dashboard-icon">📚</div>
+        <h3>My Dreams</h3>
+        <p>View all your recorded dreams</p>
+        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline mt-2">View Dreams</a>
+    </div>
 
+    <div class="dashboard-card">
+        <div class="dashboard-icon">⭐</div>
+        <h3>Favorites</h3>
+        <p>Your favorite dream analyses</p>
+        <a href="{% url 'dreams_app:favorites' %}" class="btn btn-secondary mt-2">View Favorites</a>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <h3>Recent Activity</h3>
+    <p>You have recorded <strong>{{ dream_count }}</strong> dreams so far.</p>
+    <p>Continue your journey of self-discovery through your dreams.</p>
+</div>
 {% endblock %}
