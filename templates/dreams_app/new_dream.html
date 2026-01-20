@@ -1,33 +1,34 @@
 {% extends 'base.html' %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
-{% block title %}New Dream{% endblock %}
+{% block title %}{% trans "New Dream" %}{% endblock %}
 
 {% block content %}
 <div class="card">
-    <h1>Record New Dream</h1>
-    <p class="mb-2">Describe your dream in detail for AI analysis and visualization.</p>
+    <h1>{% trans "Record New Dream" %}</h1>
+    <p class="mb-2">{% trans "Describe your dream in detail for AI analysis and visualization." %}</p>
 
     <form method="post" enctype="multipart/form-data" class="mt-2">
         {% csrf_token %}
 
         <div class="form-group">
-            <label for="id_name">Dream Title</label>
+            <label for="id_name">{% trans "Dream Title" %}</label>
             {{ form.name }}
         </div>
 
         <div class="form-group">
-            <label for="id_text">Dream Description</label>
+            <label for="id_text">{% trans "Dream Description" %}</label>
             {{ form.text }}
         </div>
 
         <div class="form-group">
-            <label for="id_image">Upload Dream Image (Optional)</label>
+            <label for="id_image">{% trans "Upload Dream Image (Optional)" %}</label>
             {{ form.image }}
         </div>
 
         <div class="dream-actions">
-            <button type="submit" class="btn btn-primary">✨ Analyze Dream</button>
-            <a href="{% url 'dashboard' %}" class="btn btn-outline">Cancel</a>
+            <button type="submit" class="btn btn-primary">✨ {% trans "Analyze Dream" %}</button>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline">{% trans "Cancel" %}</a>
         </div>
     </form>
 </div>

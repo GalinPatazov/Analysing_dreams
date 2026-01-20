@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
-{% block title %}My Favorites{% endblock %}
+{% block title %}{% trans "My Favorites" %}{% endblock %}
 
 {% block content %}
 <div class="card">
-    <h1>⭐ My Favorite Dreams</h1>
+    <h1>⭐ {% trans "My Favorite Dreams" %}</h1>
 
     {% if favorites %}
         <div class="dream-list">
@@ -12,30 +13,28 @@
                 <div class="dream-item">
                     <h3>{{ fav.dream.name }}</h3>
                     <div class="dream-meta">
-                        <span>📅 Dream Date: {{ fav.dream.created_at|date:"F j, Y" }}</span>
-                        <span>⭐ Favorited: {{ fav.created_at|date:"F j, Y" }}</span>
+                        <span>📅 {% trans "Dream Date:" %} {{ fav.dream.created_at|date:"F j, Y" }}</span>
+                        <span>⭐ {% trans "Favorited:" %} {{ fav.created_at|date:"F j, Y" }}</span>
                     </div>
 
-                    {% if fav.dream.analysis_text %}
-                        <p>{{ fav.dream.analysis_text|truncatewords:30 }}</p>
-                    {% endif %}
+                    <!-- ... existing code (analysis text) ... -->
 
                     <div class="dream-actions">
-                        <a href="{% url 'dreams_app:detail' fav.dream.id %}" class="btn btn-primary">View Dream</a>
-                        <a href="{% url 'dreams_app:toggle_favorite' fav.dream.id %}" class="btn btn-danger">Remove Favorite</a>
+                        <a href="{% url 'dreams_app:detail' fav.dream.id %}" class="btn btn-primary">{% trans "View Dream" %}</a>
+                        <a href="{% url 'dreams_app:toggle_favorite' fav.dream.id %}" class="btn btn-danger">{% trans "Remove Favorite" %}</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
     {% else %}
         <div class="text-center mt-3">
-            <p class="mb-2">You haven't favorited any dreams yet.</p>
-            <p>Start by exploring your dreams and clicking the ⭐ button!</p>
+            <p class="mb-2">{% trans "You haven't favorited any dreams yet." %}</p>
+            <p>{% trans "Start by exploring your dreams and clicking the ⭐ button!" %}</p>
         </div>
     {% endif %}
 
     <div class="mt-3">
-        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">← Back to My Dreams</a>
+        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">← {% trans "Back to My Dreams" %}</a>
     </div>
 </div>
 {% endblock %}

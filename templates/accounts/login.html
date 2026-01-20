@@ -1,9 +1,11 @@
-<h2>Login</h2>
+{% load i18n %}  <!-- Add this to enable translations -->
+
+<h2>{% trans "Login" %}</h2>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button type="submit">{% trans "Login" %}</button>
 </form>
 
-<a href="{% url 'register' %}">Create account</a>
+<a href="{% url 'register' %}">{% trans "Create account" %}</a>

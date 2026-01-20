@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
 {% block content %}
 <div class="dream-detail">
@@ -12,48 +13,48 @@
     </div>
 
     <div class="dream-text">
-        <h3>Dream Description</h3>
+        <h3>{% trans "Dream Description" %}</h3>
         <p>{{ dream.text|linebreaks }}</p>
     </div>
 
     <div class="mt-3">
         <a href="{% url 'dreams_app:toggle_favorite' dream.pk %}" class="btn btn-secondary">
             {% if is_favorite %}
-                ⭐ Remove from Favorites
+                ⭐ {% trans "Remove from Favorites" %}
             {% else %}
-                ☆ Add to Favorites
+                ☆ {% trans "Add to Favorites" %}
             {% endif %}
         </a>
     </div>
 
     <div class="mt-3">
-        <h3>AI Analysis</h3>
+        <h3>{% trans "AI Analysis" %}</h3>
         {% if dream.analysis_text %}
             <div class="card">
                 <p>{{ dream.analysis_text|linebreaks }}</p>
             </div>
         {% else %}
-            <p><em>No analysis available. Try regenerating the analysis.</em></p>
+            <p><em>{% trans "No analysis available. Try regenerating the analysis." %}</em></p>
         {% endif %}
     </div>
 
     <div class="mt-3">
-        <h3>Dream Visualization</h3>
+        <h3>{% trans "Dream Visualization" %}</h3>
         {% if dream.image %}
             <img src="{{ dream.image.url }}"
-                 alt="Dream visualization"
+                 alt="{% trans 'Dream visualization' %}"
                  class="dream-image">
         {% else %}
             <img src="{% static 'dreams_app/images/placeholder.png' %}"
-                 alt="Dream placeholder"
+                 alt="{% trans 'Dream placeholder' %}"
                  class="dream-image">
         {% endif %}
     </div>
 
     <div class="dream-actions mt-3">
-        <a href="{% url 'dreams_app:edit_dream' dream.pk %}" class="btn btn-primary">Edit Dream</a>
-        <a href="{% url 'dreams_app:delete_dream' dream.pk %}" class="btn btn-danger">Delete Dream</a>
-        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">← Back to My Dreams</a>
+        <a href="{% url 'dreams_app:edit_dream' dream.pk %}" class="btn btn-primary">{% trans "Edit Dream" %}</a>
+        <a href="{% url 'dreams_app:delete_dream' dream.pk %}" class="btn btn-danger">{% trans "Delete Dream" %}</a>
+        <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">← {% trans "Back to My Dreams" %}</a>
     </div>
 </div>
 {% endblock %}

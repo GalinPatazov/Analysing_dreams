@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
-{% block title %}Delete Dream{% endblock %}
+{% block title %}{% trans "Delete Dream" %}{% endblock %}
 
 {% block content %}
-<h1>Delete Dream</h1>
-<p>Are you sure you want to delete "{{ object.name }}"?</p>
+<h1>{% trans "Delete Dream" %}</h1>
+<p>{% trans "Are you sure you want to delete" %} "{{ object.name }}"?</p>
 
 <form method="post">
     {% csrf_token %}
-    <button type="submit" style="background-color: #ff4d4d; color: white;">Confirm Delete</button>
-    <a href="{% url 'dreams_app:detail' object.id %}" class="btn">Cancel</a>
+    <button type="submit" style="background-color: #ff4d4d; color: white;">{% trans "Confirm Delete" %}</button>
+    <a href="{% url 'dreams_app:detail' object.id %}" class="btn">{% trans "Cancel" %}</a>
 </form>
 {% endblock %}

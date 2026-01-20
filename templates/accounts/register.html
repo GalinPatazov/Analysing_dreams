@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
-{% block title %}Register{% endblock %}
+{% block title %}{% trans "Register" %}{% endblock %}
 
 {% block content %}
 <div class="card" style="max-width: 500px; margin: 0 auto;">
-    <h2 class="text-center">Create Account</h2>
+    <h2 class="text-center">{% trans "Create Account" %}</h2>
     
     <form method="post" class="mt-2">
         {% csrf_token %}
         
         {% for field in form %}
             <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>  <!-- Labels are dynamic, but if static, wrap them -->
                 {{ field }}
                 {% if field.errors %}
                     <div class="error-message" style="color: var(--danger); font-size: 0.9rem;">
@@ -21,11 +22,11 @@
             </div>
         {% endfor %}
         
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">{% trans "Create Account" %}</button>
     </form>
     
     <div class="text-center mt-2">
-        <p>Already have an account? <a href="{% url 'login' %}" style="color: var(--primary);">Login here</a></p>
+        <p>{% trans "Already have an account?" %} <a href="{% url 'login' %}" style="color: var(--primary);">{% trans "Login here" %}</a></p>
     </div>
 </div>
 {% endblock %}

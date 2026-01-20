@@ -1,44 +1,45 @@
 {% extends 'base.html' %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
-{% block title %}Home | Dream AI{% endblock %}
+{% block title %}{% trans "Home | Dream AI" %}{% endblock %}
 
 {% block content %}
 <div class="hero-section text-center">
-    <h1>Unlock the Mysteries of Your Dreams</h1>
-    <p class="mb-3">AI-powered dream analysis and visualization to help you understand your subconscious mind.</p>
+    <h1>{% trans "Unlock the Mysteries of Your Dreams" %}</h1>
+    <p class="mb-3">{% trans "AI-powered dream analysis and visualization to help you understand your subconscious mind." %}</p>
 
     {% if not user.is_authenticated %}
-        <a href="{% url 'register' %}" class="btn btn-primary btn-large">Start Your Journey</a>
-        <a href="{% url 'login' %}" class="btn btn-outline">Sign In</a>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-large">{% trans "Start Your Journey" %}</a>
+        <a href="{% url 'login' %}" class="btn btn-outline">{% trans "Sign In" %}</a>
     {% else %}
-        <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary btn-large">Record New Dream</a>
-        <a href="{% url 'dashboard' %}" class="btn btn-outline">Go to Dashboard</a>
+        <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary btn-large">{% trans "Record New Dream" %}</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline">{% trans "Go to Dashboard" %}</a>
     {% endif %}
 </div>
 
 <div class="features-grid mt-3">
     <div class="card">
-        <h3>🌙 Record Dreams</h3>
-        <p>Capture your dreams immediately upon waking to preserve details.</p>
+        <h3>🌙 {% trans "Record Dreams" %}</h3>
+        <p>{% trans "Capture your dreams immediately upon waking to preserve details." %}</p>
     </div>
 
     <div class="card">
-        <h3>🤖 AI Analysis</h3>
-        <p>Get insights into symbols, emotions, and patterns in your dreams.</p>
+        <h3>🤖 {% trans "AI Analysis" %}</h3>
+        <p>{% trans "Get insights into symbols, emotions, and patterns in your dreams." %}</p>
     </div>
 
     <div class="card">
-        <h3>🎨 Visualization</h3>
-        <p>Generate images based on your dream descriptions.</p>
+        <h3>🎨 {% trans "Visualization" %}</h3>
+        <p>{% trans "Generate images based on your dream descriptions." %}</p>
     </div>
 
     <div class="card">
-        <h3>📊 Dream Journal</h3>
-        <p>Track patterns and progress over time in your personal dream journal.</p>
+        <h3>📊 {% trans "Dream Journal" %}</h3>
+        <p>{% trans "Track patterns and progress over time in your personal dream journal." %}</p>
     </div>
 </div>
 
-<style>
+    <style>
     .hero-section {
         background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         color: var(--white);
@@ -70,4 +71,6 @@
         gap: 2rem;
     }
 </style>
+
+<!-- ... existing code (style block) ... -->
 {% endblock %}

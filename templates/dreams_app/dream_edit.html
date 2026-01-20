@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}  <!-- Add this to enable translations -->
 
-{% block title %}Edit Dream{% endblock %}
+{% block title %}{% trans "Edit Dream" %}{% endblock %}
 
 {% block content %}
-<h1>Edit Dream</h1>
-<p>Note: Changing the dream text will regenerate the AI analysis and image.</p>
+<h1>{% trans "Edit Dream" %}</h1>
+<p>{% trans "Note: Changing the dream text will regenerate the AI analysis and image." %}</p>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Update Dream</button>
+    <button type="submit">{% trans "Update Dream" %}</button>
 </form>
 
-<a href="{% url 'dreams_app:detail' object.id %}" class="btn">Cancel</a>
+<a href="{% url 'dreams_app:detail' object.id %}" class="btn">{% trans "Cancel" %}</a>
 {% endblock %}
