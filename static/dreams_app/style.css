@@ -364,6 +364,73 @@ textarea.form-control {
 .mb-2 { margin-bottom: 2rem; }
 .mb-3 { margin-bottom: 3rem; }
 
+/* ===== SIMPLE FORM STYLES ===== */
+.alert-error {
+    background: rgba(239, 71, 111, 0.1);
+    color: var(--danger);
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--danger);
+}
+
+/* Form inputs specific styling */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    width: 100%;
+    background: var(--white);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(74, 59, 140, 0.1);
+}
+
+/* File input styling */
+input[type="file"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    background: transparent;
+    color: var(--text);
+}
+
+input[type="file"]::file-selector-button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: var(--transition);
+    margin-right: 1rem;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: var(--primary-light);
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--primary);
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .navbar {
@@ -393,6 +460,101 @@ textarea.form-control {
 
     .dashboard-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ===== FORM INPUT STYLING ===== */
+/* Style Django form inputs to match our design */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    width: 100%;
+    background: var(--white);
+    color: var(--text);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(74, 59, 140, 0.1);
+}
+
+/* Specific styling for textareas */
+textarea {
+    min-height: 150px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+/* Style for form paragraphs (error messages, help text) */
+form p {
+    margin: 0.5rem 0 1rem;
+}
+
+form p.help-text {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+form p.error-message {
+    color: var(--danger);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+/* Make sure Django form fields use our styles */
+#id_name,
+#id_text,
+#id_image {
+    width: 100%;
+}
+
+/* For file inputs if you add them back later */
+input[type="file"] {
+    padding: 0.5rem;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    width: 100%;
+    background: var(--white);
+}
+
+input[type="file"]:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Button spacing */
+.btn {
+    min-width: 120px;
+}
+
+/* Responsive button layout */
+@media (max-width: 768px) {
+    .btn {
+        min-width: 100px;
+        padding: 0.75rem 1rem;
+    }
+
+    div[style*="display: flex; gap: 1rem;"] {
+        flex-direction: column;
+    }
+
+    a[style*="margin-left: auto;"] {
+        margin-left: 0 !important;
+        margin-top: 1rem;
     }
 }
 
