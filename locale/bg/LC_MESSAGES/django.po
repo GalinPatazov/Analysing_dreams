@@ -84,7 +84,7 @@ msgstr "Изход"
 
 #: templates/base.html:36
 msgid "Sign Up"
-msgstr "Регистрирайте се"
+msgstr "Регистрация"
 
 #: templates/base.html:64
 msgid "Unlock the mysteries of your subconscious."
@@ -111,7 +111,7 @@ msgstr "Добавете и анализирайте нова мечта"
 #, fuzzy
 #| msgid "Dream"
 msgid "New Dream"
-msgstr "Мечтайте"
+msgstr "Нов сън"
 
 #: templates/core/dashboard.html:23
 msgid "View all your recorded dreams"
@@ -121,7 +121,7 @@ msgstr "Вижте всичките си записани сънища"
 #, fuzzy
 #| msgid "My Dreams"
 msgid "View Dreams"
-msgstr "Моите мечти"
+msgstr "Виж сънищата"
 
 #: templates/core/dashboard.html:30
 msgid "Your favorite dream analyses"
@@ -131,7 +131,7 @@ msgstr "Вашите любими анализи на сънища"
 #, fuzzy
 #| msgid "Favorites"
 msgid "View Favorites"
-msgstr "Любими"
+msgstr "Виж любимите"
 
 #: templates/core/dashboard.html:36
 msgid "Recent Activity"
@@ -180,16 +180,14 @@ msgid "Sign In"
 msgstr "Регистрирайте се"
 
 #: templates/core/home.html:16
-#, fuzzy
-#| msgid "Dashboard"
 msgid "Go to Dashboard"
-msgstr "Табло за управление"
+msgstr "Към таблото за управление"
 
 #: templates/core/home.html:22
 #, fuzzy
 #| msgid "My Dreams"
 msgid "Record Dreams"
-msgstr "Моите мечти"
+msgstr "Записвай сънища"
 
 #: templates/core/home.html:23
 msgid "Capture your dreams immediately upon waking to preserve details."
@@ -287,7 +285,7 @@ msgstr "Мечтайте"
 #, fuzzy
 #| msgid "My Dreams"
 msgid "Back to My Dreams"
-msgstr "Моите мечти"
+msgstr "Назад към Моите сънища"
 
 #: templates/dreams_app/dream_edit.html:8
 msgid ""
@@ -310,7 +308,7 @@ msgstr "Любими"
 #, fuzzy
 #| msgid "Favorites"
 msgid "My Favorite Dreams"
-msgstr "Любими"
+msgstr "Моите любими сънища"
 
 #: templates/dreams_app/favorites.html:16
 #, fuzzy
@@ -328,13 +326,13 @@ msgstr "Любими"
 #, fuzzy
 #| msgid "Dream"
 msgid "View Dream"
-msgstr "Мечтайте"
+msgstr "Виж съня"
 
 #: templates/dreams_app/favorites.html:24
 #, fuzzy
 #| msgid "Favorites"
 msgid "Remove Favorite"
-msgstr "Любими"
+msgstr "Премахни от любими"
 
 #: templates/dreams_app/favorites.html:31
 msgid "You haven't favorited any dreams yet."
@@ -367,10 +365,8 @@ msgid "Record Your First Dream"
 msgstr "Запишете първата си мечта"
 
 #: templates/dreams_app/my_dreams.html:43
-#, fuzzy
-#| msgid "Dashboard"
 msgid "Back to Dashboard"
-msgstr "Табло за управление"
+msgstr "Назад към таблото за управление"
 
 #: templates/dreams_app/new_dream.html:9
 msgid "Describe your dream in detail for AI analysis and visualization."

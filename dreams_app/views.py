@@ -2,12 +2,54 @@ import time
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.db import transaction
+from django.utils import timezone
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.http import Http404
-from .models import Dream, Favorite
+from .models import Dream, Favorite, AIAnalysisDailyUsage
 from .ai_services import analyze_dream, generate_dream_image
 from django.core.files.base import ContentFile
+
+DAILY_AI_ANALYSIS_LIMIT = 3
+
+
+def _can_consume_ai_analysis(user) -> bool:
+    # Admins have unlimited usage
+    if user.is_staff or user.is_superuser:
+        return True
+
+    today = timezone.localdate()
+    usage = AIAnalysisDailyUsage.objects.filter(user=user, date=today).first()
+    if not usage:
+        return True
+    return usage.count < DAILY_AI_ANALYSIS_LIMIT
+
+
+@transaction.atomic
+def _consume_ai_analysis(user) -> bool:
+    """
+    Returns True if quota was consumed successfully, False if user is out of quota.
+    Uses a row lock to avoid race conditions (double submits, parallel requests, etc.).
+    """
+    if user.is_staff or user.is_superuser:
+        return True
+
+    today = timezone.localdate()
+    usage, _ = AIAnalysisDailyUsage.objects.select_for_update().get_or_create(
+        user=user,
+        date=today,
+        defaults={"count": 0},
+    )
+
+    if usage.count >= DAILY_AI_ANALYSIS_LIMIT:
+        return False
+
+    usage.count += 1
+    usage.save(update_fields=["count"])
+    return True
+
 
 # Create a new dream
 class DreamCreateView(LoginRequiredMixin, CreateView):
@@ -19,6 +61,17 @@ class DreamCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         dream = form.save(commit=False)
         dream.user = self.request.user
+
+        # Enforce daily limit for non-admin users
+        if not _consume_ai_analysis(self.request.user):
+            messages.error(
+                self.request,
+                "Daily AI analysis limit reached (3/day). Please try again tomorrow."
+            )
+            dream.analysis_text = "Daily AI analysis limit reached. Please try again tomorrow."
+            dream.image = None
+            dream.save()
+            return redirect(self.success_url)
 
         # 1. Generate analysis text
         dream.analysis_text = analyze_dream(dream.text)
@@ -50,7 +103,25 @@ class DreamUpdateView(LoginRequiredMixin, UpdateView):
         dream = form.save(commit=False)
 
         # Check if text changed or if metadata is missing
-        if 'text' in form.changed_data or not dream.analysis_text or not dream.image:
+        needs_regen = ('text' in form.changed_data) or (not dream.analysis_text) or (not dream.image)
+        if needs_regen:
+            # If we're going to hit the AI, enforce the daily limit
+            if not _consume_ai_analysis(self.request.user):
+                messages.error(
+                    self.request,
+                    "Daily AI analysis limit reached (3/day). Please try again tomorrow."
+                )
+
+                # If text changed, old analysis/image would no longer match; clear them.
+                if 'text' in form.changed_data:
+                    if dream.image:
+                        dream.image.delete(save=False)
+                    dream.image = None
+                    dream.analysis_text = "Daily AI analysis limit reached. Please try again tomorrow."
+
+                dream.save()
+                return redirect('dreams_app:detail', pk=dream.pk)
+
             # 1. Regenerate Analysis
             dream.analysis_text = analyze_dream(dream.text)
             
