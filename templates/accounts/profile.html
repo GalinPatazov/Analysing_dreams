@@ -1,1 +1,273 @@
-<h2>Profile</h2>
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+    <div class="card">
+        <!-- Profile Header -->
+        <div class="text-center mb-4">
+            <div class="profile-avatar">
+                {{ user.username|first|upper }}
+            </div>
+            <h1>{{ user.username }}</h1>
+            <p class="profile-role">{% trans "Dream Analyst" %}</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="profile-stats">
+            <div class="stat-card">
+                <div class="stat-number">{{ dream_count }}</div>
+                <h3>{% trans "Dreams" %}</h3>
+                <p>{% trans "Total recorded" %}</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">
+                    {% if favorites_count %}{{ favorites_count }}{% else %}0{% endif %}
+                </div>
+                <h3>{% trans "Favorites" %}</h3>
+                <p>{% trans "Starred dreams" %}</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">
+                    {{ days_active }}
+                </div>
+                <h3>{% trans "Days Active" %}</h3>
+                <p>{% trans "On Dream AI" %}</p>
+            </div>
+        </div>
+
+        <!-- Account Details -->
+        <div class="profile-details">
+            <h2>{% trans "Account Details" %}</h2>
+
+            <div class="detail-item">
+                <div class="detail-icon">👤</div>
+                <div>
+                    <p><strong>{% trans "Username" %}</strong></p>
+                    <p>{{ user.username }}</p>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-icon">📧</div>
+                <div>
+                    <p><strong>{% trans "Email" %}</strong></p>
+                    <p>
+                        {% if user.email %}
+                            {{ user.email }}
+                        {% else %}
+                            <em>{% trans "(not set)" %}</em>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-icon">🎭</div>
+                <div>
+                    <p><strong>{% trans "Role" %}</strong></p>
+                    <p>{{ role }}</p>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-icon">📅</div>
+                <div>
+                    <p><strong>{% trans "Member Since" %}</strong></p>
+                    <p>
+                        {% if user.date_joined %}
+                            {{ user.date_joined|date:"F j, Y" }}
+                        {% else %}
+                            {% trans "Recently" %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="profile-actions">
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">
+                {% trans "Dashboard" %}
+            </a>
+            <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">
+                {% trans "View Dreams" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Profile specific styles */
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        box-shadow: var(--shadow);
+        font-family: 'Poppins', sans-serif;
+        font-weight: bold;
+    }
+
+    .profile-role {
+        color: var(--text-light);
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .stat-card {
+        background: var(--background);
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow);
+    }
+
+    .stat-card:nth-child(1) .stat-number {
+        color: var(--primary);
+    }
+
+    .stat-card:nth-child(2) .stat-number {
+        color: var(--secondary);
+    }
+
+    .stat-card:nth-child(3) .stat-number {
+        color: var(--accent);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .stat-card h3 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+
+    .stat-card p {
+        color: var(--text-light);
+        margin: 0.25rem 0 0;
+        font-size: 0.9rem;
+    }
+
+    .profile-details {
+        background: var(--white);
+        border-radius: var(--radius);
+        padding: 2rem;
+        border: 1px solid var(--border);
+        margin: 2rem 0;
+    }
+
+    .profile-details h2 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--background);
+        border-radius: var(--radius);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+
+    .detail-item:hover {
+        background: rgba(74, 59, 140, 0.05);
+    }
+
+    .detail-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .detail-icon {
+        background: var(--primary);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .detail-item:nth-child(2) .detail-icon {
+        background: var(--primary-light);
+    }
+
+    .detail-item:nth-child(3) .detail-icon {
+        background: var(--secondary);
+    }
+
+    .detail-item:nth-child(4) .detail-icon {
+        background: var(--accent);
+    }
+
+    .detail-item div:last-child p {
+        margin: 0;
+    }
+
+    .detail-item strong {
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    .detail-item p:last-child {
+        color: var(--text-light);
+        margin-top: 0.25rem;
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .profile-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .profile-actions {
+            flex-direction: column;
+        }
+
+        .profile-actions .btn {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

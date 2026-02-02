@@ -28,7 +28,8 @@
                         <a href="{% url 'dreams_app:my_dreams' %}" class="nav-link">{% trans "My Dreams" %}</a>
                         <a href="{% url 'dreams_app:favorites' %}" class="nav-link">{% trans "Favorites" %}</a>
                         <div class="user-menu">
-                            <span class="username">{% trans "Hi" %}, {{ user.username }}</span>
+{#                            <span class="username">{% trans "Hi" %}, {{ user.username }}</span>#}
+                            <a href="{% url 'profile' %}" class="btn btn-outline">{% trans "Profile" %}</a>
                             <a href="{% url 'logout' %}" class="btn btn-outline">{% trans "Logout" %}</a>
                         </div>
                     {% else %}

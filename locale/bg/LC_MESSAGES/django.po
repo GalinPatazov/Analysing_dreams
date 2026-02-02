@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-20 10:42+0000\n"
+"POT-Creation-Date: 2026-02-02 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,144 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/accounts/login.html:3 templates/accounts/login.html:8
-#: templates/base.html:35
+#: accounts/views.py:49
+msgid "Lucid Legend"
+msgstr "Легенда на осъзнатите сънища"
+
+#: accounts/views.py:51
+#, fuzzy
+#| msgid "Dream AI"
+msgid "Dream Weaver"
+msgstr "Тъкач на сънища"
+
+#: accounts/views.py:53
+msgid "Night Explorer"
+msgstr "Нощен изследовател"
+
+#: accounts/views.py:55
+#, fuzzy
+#| msgid "Dream"
+msgid "New Dreamer"
+msgstr "Нов сън"
+
+#: accounts/views.py:56
+msgid "Just Arrived"
+msgstr "Тъкмо пристигнал"
+
+#: templates/accounts/login.html:4 templates/accounts/login.html:10
+#: templates/base.html:36
 msgid "Login"
 msgstr "Вход"
 
 #: templates/accounts/login.html:11
+msgid "Sign in to access your dream journal"
+msgstr "Влезте в профила си за да имате достъп до вашите сънища"
+
+#: templates/accounts/login.html:16
+msgid "Please enter a correct username and password."
+msgstr "Моля въведете валидно име и парола"
+
+#: templates/accounts/login.html:24 templates/accounts/profile.html:51
+msgid "Username"
+msgstr "Потребител"
+
+#: templates/accounts/login.html:29
+msgid "Password"
+msgstr "Парола"
+
+#: templates/accounts/login.html:41 templates/core/home.html:13
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Sign In"
+msgstr "Регистрирайте се"
+
+#: templates/accounts/login.html:47
+#, fuzzy
+#| msgid "Already have an account?"
+msgid "Don't have an account?"
+msgstr "Вече имате акаунт?"
+
+#: templates/accounts/login.html:49
 msgid "Create account"
 msgstr "Създаване на акаунт"
+
+#: templates/accounts/profile.html:5 templates/base.html:32
+msgid "Profile"
+msgstr "Профил"
+
+#: templates/accounts/profile.html:16
+#, fuzzy
+#| msgid "Dream Journal"
+msgid "Dream Analyst"
+msgstr "Мечта дневник"
+
+#: templates/accounts/profile.html:23
+#, fuzzy
+#| msgid "Dream"
+msgid "Dreams"
+msgstr "Сънища"
+
+#: templates/accounts/profile.html:24
+#, fuzzy
+#| msgid "You have recorded"
+msgid "Total recorded"
+msgstr "Вие сте записали"
+
+#: templates/accounts/profile.html:31 templates/base.html:29
+#: templates/core/dashboard.html:29
+msgid "Favorites"
+msgstr "Любими"
+
+#: templates/accounts/profile.html:32
+msgid "Starred dreams"
+msgstr "Любими сънища"
+
+#: templates/accounts/profile.html:39
+msgid "Days Active"
+msgstr "Активни дни"
+
+#: templates/accounts/profile.html:40
+#, fuzzy
+#| msgid "Dream AI"
+msgid "On Dream AI"
+msgstr "На Dream AI"
+
+#: templates/accounts/profile.html:46
+msgid "Account Details"
+msgstr "Детайли на профила"
+
+#: templates/accounts/profile.html:59
+msgid "Email"
+msgstr "Имейл"
+
+#: templates/accounts/profile.html:64
+msgid "(not set)"
+msgstr "Няма"
+
+#: templates/accounts/profile.html:73
+msgid "Role"
+msgstr "Роля"
+
+#: templates/accounts/profile.html:81
+msgid "Member Since"
+msgstr "Член от"
+
+#: templates/accounts/profile.html:86
+#, fuzzy
+#| msgid "Recent Activity"
+msgid "Recently"
+msgstr "Скорошна активност"
+
+#: templates/accounts/profile.html:96 templates/base.html:27
+#: templates/core/dashboard.html:4
+msgid "Dashboard"
+msgstr "Табло за управление"
+
+#: templates/accounts/profile.html:99 templates/core/dashboard.html:24
+#, fuzzy
+#| msgid "My Dreams"
+msgid "View Dreams"
+msgstr "Виж сънищата"
 
 #: templates/accounts/register.html:4
 msgid "Register"
@@ -45,7 +175,7 @@ msgstr "Вече имате акаунт?"
 msgid "Login here"
 msgstr "Вход"
 
-#: templates/base.html:9 templates/base.html:64
+#: templates/base.html:9 templates/base.html:65
 msgid "Dream AI"
 msgstr "Dream AI"
 
@@ -61,32 +191,20 @@ msgstr "AI"
 msgid "Home"
 msgstr "Начало"
 
-#: templates/base.html:27 templates/core/dashboard.html:4
-msgid "Dashboard"
-msgstr "Табло за управление"
-
 #: templates/base.html:28 templates/core/dashboard.html:22
 #: templates/dreams_app/my_dreams.html:4 templates/dreams_app/my_dreams.html:8
 msgid "My Dreams"
-msgstr "Моите мечти"
+msgstr "Моите сънища"
 
-#: templates/base.html:29 templates/core/dashboard.html:29
-msgid "Favorites"
-msgstr "Любими"
-
-#: templates/base.html:31
-msgid "Hi"
-msgstr "здрасти"
-
-#: templates/base.html:32
+#: templates/base.html:33
 msgid "Logout"
 msgstr "Изход"
 
-#: templates/base.html:36
+#: templates/base.html:37
 msgid "Sign Up"
 msgstr "Регистрация"
 
-#: templates/base.html:64
+#: templates/base.html:65
 msgid "Unlock the mysteries of your subconscious."
 msgstr "Отключете мистериите на вашето подсъзнание."
 
@@ -116,12 +234,6 @@ msgstr "Нов сън"
 #: templates/core/dashboard.html:23
 msgid "View all your recorded dreams"
 msgstr "Вижте всичките си записани сънища"
-
-#: templates/core/dashboard.html:24
-#, fuzzy
-#| msgid "My Dreams"
-msgid "View Dreams"
-msgstr "Виж сънищата"
 
 #: templates/core/dashboard.html:30
 msgid "Your favorite dream analyses"
@@ -173,12 +285,6 @@ msgstr ""
 msgid "Start Your Journey"
 msgstr "Започнете вашето пътуване"
 
-#: templates/core/home.html:13
-#, fuzzy
-#| msgid "Sign Up"
-msgid "Sign In"
-msgstr "Регистрирайте се"
-
 #: templates/core/home.html:16
 msgid "Go to Dashboard"
 msgstr "Към таблото за управление"
@@ -220,26 +326,45 @@ msgstr ""
 "сънищата."
 
 #: templates/dreams_app/dream_confirm_delete.html:4
-#: templates/dreams_app/dream_confirm_delete.html:7
+#: templates/dreams_app/dream_confirm_delete.html:10
 #: templates/dreams_app/dream_detail.html:56
+#: templates/dreams_app/dream_edit.html:41
 msgid "Delete Dream"
 msgstr "Изтриване на мечта"
 
-#: templates/dreams_app/dream_confirm_delete.html:8
-msgid "Are you sure you want to delete"
+#: templates/dreams_app/dream_confirm_delete.html:16
+#, fuzzy
+#| msgid "Are you sure you want to delete"
+msgid "Are you sure you want to delete this dream?"
 msgstr "Сигурни ли сте, че искате да изтриете"
 
-#: templates/dreams_app/dream_confirm_delete.html:12
-msgid "Confirm Delete"
-msgstr "Потвърдете Изтриване"
+#: templates/dreams_app/dream_confirm_delete.html:21
+#, fuzzy
+#| msgid "Create account"
+msgid "Created on"
+msgstr "Създаване на акаунт"
 
-#: templates/dreams_app/dream_confirm_delete.html:13
-#: templates/dreams_app/dream_edit.html:16
+#: templates/dreams_app/dream_confirm_delete.html:25
+msgid ""
+"This action cannot be undone. All analysis and images will be permanently "
+"deleted."
+msgstr ""
+"Действието е необратимо. Анализите и изображенията ще бъдат изтрити завинаги."
+
+#: templates/dreams_app/dream_confirm_delete.html:33
+#, fuzzy
+#| msgid "Delete Dream"
+msgid "Yes, Delete Dream"
+msgstr "Изтриване на мечта"
+
+#: templates/dreams_app/dream_confirm_delete.html:36
+#: templates/dreams_app/dream_edit.html:38
 #: templates/dreams_app/new_dream.html:31
 msgid "Cancel"
 msgstr "Отказ"
 
 #: templates/dreams_app/dream_detail.html:16
+#: templates/dreams_app/dream_edit.html:26
 #: templates/dreams_app/new_dream.html:20
 msgid "Dream Description"
 msgstr "Описание на съня"
@@ -274,7 +399,7 @@ msgstr "Заместител на мечтите"
 
 #: templates/dreams_app/dream_detail.html:55
 #: templates/dreams_app/dream_edit.html:4
-#: templates/dreams_app/dream_edit.html:7
+#: templates/dreams_app/dream_edit.html:9
 #, fuzzy
 #| msgid "Dream"
 msgid "Edit Dream"
@@ -287,14 +412,33 @@ msgstr "Мечтайте"
 msgid "Back to My Dreams"
 msgstr "Назад към Моите сънища"
 
-#: templates/dreams_app/dream_edit.html:8
-msgid ""
-"Note: Changing the dream text will regenerate the AI analysis and image."
+#: templates/dreams_app/dream_edit.html:13
+msgid "Note:"
+msgstr "Записки"
+
+#: templates/dreams_app/dream_edit.html:13
+#, fuzzy
+#| msgid ""
+#| "Note: Changing the dream text will regenerate the AI analysis and image."
+msgid "Changing the dream text will regenerate the AI analysis and image."
 msgstr ""
 "Забележка: Промяната на текста на съня ще регенерира AI анализа и "
 "изображението."
 
-#: templates/dreams_app/dream_edit.html:13
+#: templates/dreams_app/dream_edit.html:21
+#: templates/dreams_app/new_dream.html:15
+#, fuzzy
+#| msgid "Dream AI"
+msgid "Dream Title"
+msgstr "Заглавие"
+
+#: templates/dreams_app/dream_edit.html:29
+#, fuzzy
+#| msgid "Describe your dream in detail for AI analysis and visualization."
+msgid "Describe your dream in detail for better AI analysis."
+msgstr "Опишете мечтата си подробно за AI анализ и визуализация."
+
+#: templates/dreams_app/dream_edit.html:35
 msgid "Update Dream"
 msgstr "Актуализиране на мечтата"
 
@@ -314,7 +458,7 @@ msgstr "Моите любими сънища"
 #, fuzzy
 #| msgid "Dream AI"
 msgid "Dream Date:"
-msgstr "Dream AI"
+msgstr "Дата"
 
 #: templates/dreams_app/favorites.html:17
 #, fuzzy
@@ -372,18 +516,17 @@ msgstr "Назад към таблото за управление"
 msgid "Describe your dream in detail for AI analysis and visualization."
 msgstr "Опишете мечтата си подробно за AI анализ и визуализация."
 
-#: templates/dreams_app/new_dream.html:15
-#, fuzzy
-#| msgid "Dream AI"
-msgid "Dream Title"
-msgstr "Dream AI"
-
-#: templates/dreams_app/new_dream.html:25
-msgid "Upload Dream Image (Optional)"
-msgstr "Качете мечтано изображение (по избор)"
-
 #: templates/dreams_app/new_dream.html:30
 #, fuzzy
 #| msgid "My Dreams"
 msgid "Analyze Dream"
 msgstr "Моите мечти"
+
+#~ msgid "Hi"
+#~ msgstr "здрасти"
+
+#~ msgid "Confirm Delete"
+#~ msgstr "Потвърдете Изтриване"
+
+#~ msgid "Upload Dream Image (Optional)"
+#~ msgstr "Качете мечтано изображение (по избор)"

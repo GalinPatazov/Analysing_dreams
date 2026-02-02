@@ -11,6 +11,9 @@ from django.http import Http404
 from .models import Dream, Favorite, AIAnalysisDailyUsage
 from .ai_services import analyze_dream, generate_dream_image
 from django.core.files.base import ContentFile
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+
 
 DAILY_AI_ANALYSIS_LIMIT = 3
 
@@ -168,8 +171,10 @@ def dream_detail(request, pk):
         'is_favorite': is_favorite
     })
 
+# @require_POST
+@login_required
 def toggle_favorite(request, pk):
-    dream = get_object_or_404(Dream, pk=pk)
+    dream = get_object_or_404(Dream, pk=pk, user=request.user)
 
     favorite, created = Favorite.objects.get_or_create(
         user=request.user,
