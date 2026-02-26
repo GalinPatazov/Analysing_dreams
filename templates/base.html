@@ -28,15 +28,14 @@
                         <a href="{% url 'dreams_app:my_dreams' %}" class="nav-link">{% trans "My Dreams" %}</a>
                         <a href="{% url 'dreams_app:favorites' %}" class="nav-link">{% trans "Favorites" %}</a>
                         <div class="user-menu">
-{#                            <span class="username">{% trans "Hi" %}, {{ user.username }}</span>#}
-                            <a href="{% url 'profile' %}" class="btn btn-outline">{% trans "Profile" %}</a>
+                            <span class="username">{% trans "Hi" %}, {{ user.username }}</span>
                             <a href="{% url 'logout' %}" class="btn btn-outline">{% trans "Logout" %}</a>
                         </div>
                     {% else %}
                         <a href="{% url 'login' %}" class="nav-link">{% trans "Login" %}</a>
                         <a href="{% url 'register' %}" class="btn btn-primary">{% trans "Sign Up" %}</a>
                     {% endif %}
-                
+
 <!-- Add this form for the language switcher -->
 <form action="{% url 'set_language' %}" method="post" class="language-switcher">
     {% csrf_token %}

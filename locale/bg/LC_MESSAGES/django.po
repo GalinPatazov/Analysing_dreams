@@ -22,6 +22,24 @@ msgstr ""
 msgid "Lucid Legend"
 msgstr "Легенда на осъзнатите сънища"
 
+#: dreams_app/base.html
+msgid "Unlock the Mysteries of Your Dreams"
+msgstr "Разкрийте мистериите на вашите сънища"
+
+msgid "Sign In"
+msgstr "Вход"
+
+msgid "Record Dreams"
+msgstr "Записвайте сънища"
+
+msgid "View Dream"
+msgstr "Вижте Сънищата си"
+
+msgid "Remove Favorite"
+msgstr "Премахване от любимите"
+
+msgid "Back to My Dreams"
+msgstr "Обратно към сънищата ми"
 #: accounts/views.py:51
 #, fuzzy
 #| msgid "Dream AI"
@@ -181,7 +199,7 @@ msgstr "Dream AI"
 
 #: templates/base.html:21
 msgid "Dream"
-msgstr "Мечтайте"
+msgstr "Сън"
 
 #: templates/base.html:21
 msgid "AI"
