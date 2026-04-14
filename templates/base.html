@@ -27,8 +27,10 @@
                         <a href="{% url 'dashboard' %}" class="nav-link">{% trans "Dashboard" %}</a>
                         <a href="{% url 'dreams_app:my_dreams' %}" class="nav-link">{% trans "My Dreams" %}</a>
                         <a href="{% url 'dreams_app:favorites' %}" class="nav-link">{% trans "Favorites" %}</a>
+
                         <div class="user-menu">
-                            <span class="username">{% trans "Hi" %}, {{ user.username }}</span>
+                            <a href="{% url 'profile' %}" class="nav-link">{% trans "Profile" %}</a>
+{#                            <span class="username">{% trans "Hi" %}, {{ user.username }}</span>#}
                             <a href="{% url 'logout' %}" class="btn btn-outline">{% trans "Logout" %}</a>
                         </div>
                     {% else %}
@@ -36,19 +38,19 @@
                         <a href="{% url 'register' %}" class="btn btn-primary">{% trans "Sign Up" %}</a>
                     {% endif %}
 
-<!-- Add this form for the language switcher -->
-<form action="{% url 'set_language' %}" method="post" class="language-switcher">
-    {% csrf_token %}
-    <select name="language" onchange="this.form.submit()">
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_available_languages as LANGUAGES %}
-        {% for lang in LANGUAGES %}
-            <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
-                {{ lang.1 }}
-            </option>
-        {% endfor %}
-    </select>
-</form>
+    <!-- Add this form for the language switcher -->
+    <form action="{% url 'set_language' %}" method="post" class="language-switcher">
+        {% csrf_token %}
+        <select name="language" onchange="this.form.submit()">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for lang in LANGUAGES %}
+                <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+                    {{ lang.1 }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
 </div>
             </nav>
         </div>

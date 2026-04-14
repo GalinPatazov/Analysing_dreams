@@ -22,7 +22,7 @@ msgstr ""
 msgid "Lucid Legend"
 msgstr "Легенда на осъзнатите сънища"
 
-#: dreams_app/base.html
+
 msgid "Unlock the Mysteries of Your Dreams"
 msgstr "Разкрийте мистериите на вашите сънища"
 

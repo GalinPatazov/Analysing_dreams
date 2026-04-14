@@ -72,7 +72,7 @@ def generate_dream_image(dream_text: str):
                 },
                 {"role": "user", "content": dream_text}
             ],
-            max_tokens=180,
+            max_tokens=300,
         )
         safe_visual_prompt = prompt_resp.choices[0].message.content.strip()
     except Exception as e:
