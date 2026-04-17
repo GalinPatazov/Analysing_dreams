@@ -13,8 +13,8 @@
                 <div class="dream-item">
                     <h3>{{ fav.dream.name }}</h3>
                     <div class="dream-meta">
-                        <span>📅 {% trans "Dream Date:" %} {{ fav.dream.created_at|date:"F j, Y" }}</span>
-                        <span>⭐ {% trans "Favorited:" %} {{ fav.created_at|date:"F j, Y" }}</span>
+                        <span> {{ fav.dream.created_at|date:"F j, Y" }}</span>
+                        <span> {{ fav.created_at|date:"F j, Y" }}</span>
                     </div>
 
                     <!-- ... existing code (analysis text) ... -->

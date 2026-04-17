@@ -28,11 +28,11 @@
 
         <form method="post">
             {% csrf_token %}
-            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
-                <button type="submit" class="btn btn-danger" style="padding: 1rem 2rem; font-size: 1.1rem;">
+            <div class="btn-row" style="justify-content: center;">
+                <button type="submit" class="btn btn-danger">
                     {% trans "Yes, Delete Dream" %}
                 </button>
-                <a href="{% url 'dreams_app:detail' object.id %}" class="btn btn-outline" style="padding: 1rem 2rem;">
+                <a href="{% url 'dreams_app:detail' object.id %}" class="btn btn-outline">
                     {% trans "Cancel" %}
                 </a>
             </div>

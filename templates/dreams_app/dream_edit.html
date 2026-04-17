@@ -30,14 +30,14 @@
                 </p>
             </div>
 
-            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <div class="btn-row">
                 <button type="submit" class="btn btn-primary">
                     {% trans "Update Dream" %}
                 </button>
                 <a href="{% url 'dreams_app:detail' object.id %}" class="btn btn-outline">
                     {% trans "Cancel" %}
                 </a>
-                <a href="{% url 'dreams_app:delete_dream' object.id %}" class="btn btn-danger" style="margin-left: auto;">
+                <a href="{% url 'dreams_app:delete_dream' object.id %}" class="btn btn-danger btn-end">
                     {% trans "Delete Dream" %}
                 </a>
             </div>
