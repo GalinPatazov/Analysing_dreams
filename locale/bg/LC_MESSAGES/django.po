@@ -189,6 +189,15 @@ msgstr "Детайли на прафила"
 msgid "New Dreamer"
 msgstr "Нов сънуващ"
 
+msgid "Lucid Legend"
+msgstr "Легенда"
+
+msgid "Night Explorer"
+msgstr "Нощен изследовател "
+
+msgid "Dream Weaver"
+msgstr "Тъкач на сънища "
+
 msgid "View Details"
 msgstr "Виж детайлите"
 
@@ -222,17 +231,35 @@ msgstr "Премахване от любими"
 msgid "Add to Favorites"
 msgstr "Добави в любими"
 
+msgid "Cancel"
+msgstr "Прекрати"
+
+msgid "Analyze Dream"
+msgstr "Анализирай съня"
+
+msgid "Analyzing..."
+msgstr "Анализирине..."
+
+msgid "Dream Title"
+msgstr "Заглавие на съня"
+
 msgid "Update Dream"
 msgstr "Промени сън"
 
 msgid "Yes, Delete Dream"
 msgstr "Да, изтрии съня"
 
+msgid "Add and analyze a new dream"
+msgstr "Добави и анализирай нов сън"
+
+msgid "Search dreams by title or description..."
+msgstr "Търси сънища по заглавие и описание..."
+
 msgid "Created on"
-msgstr "Проследявайте моделите и напредъка във времето в личния си дневник на сънищата."
+msgstr "Създаден на"
 
 msgid "Track patterns and progress over time in your personal dream journal."
-msgstr "Създаден на"
+msgstr "Проследявайте моделите и напредъка във времето в личния си дневник на сънищата."
 
 msgid "Generate images based on your dream descriptions."
 msgstr "Генерирайте изображения въз основа на описанията на вашите сънища."
@@ -252,8 +279,14 @@ msgstr "Анализ и визуализация на сънища, задвиж
 msgid "Are you sure you want to delete this dream?"
 msgstr "Сигурен ли сте, че искате да изтриете този сън?"
 
+msgid "Describe your dream in detail for better AI analysis."
+msgstr "Обеснете подробво съня си за по-добър AI анализ"
+
 msgid "This action cannot be undone. All analysis and images will be permanently deleted."
 msgstr "Това действие не може да бъде отменено. Всички анализи и изображения ще бъдат изтрити завинаги."
 
-msgid "Note: Changing the dream text will regenerate the AI analysis and image."
-msgstr "Бележка: Промяната на текста на съня ще регенерира AI анализа и изображението."
+msgid "Note:"
+msgstr "Бележка:"
+
+msgid "Changing the dream text will regenerate the AI analysis and image."
+msgstr "Промяната на текста на съня ще регенерира AI анализа и изображението."

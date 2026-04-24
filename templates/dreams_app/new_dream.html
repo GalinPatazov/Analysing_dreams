@@ -8,7 +8,7 @@
     <h1>{% trans "Record New Dream" %}</h1>
     <p class="mb-2">{% trans "Describe your dream in detail for AI analysis and visualization." %}</p>
 
-    <form method="post" enctype="multipart/form-data" class="mt-2">
+    <form method="post" enctype="multipart/form-data" class="mt-2" id="new-dream-form">
         {% csrf_token %}
 
         <div class="form-group">
@@ -21,15 +21,18 @@
             {{ form.text }}
         </div>
 
-{#        <div class="form-group">#}
-{#            <label for="id_image">{% trans "Upload Dream Image (Optional)" %}</label>#}
-{#            {{ form.image }}#}
-{#        </div>#}
-
         <div class="dream-actions">
-            <button type="submit" class="btn btn-primary">✨ {% trans "Analyze Dream" %}</button>
+            <button type="submit" id="submit-btn" class="btn btn-primary">✨ {% trans "Analyze Dream" %}</button>
             <a href="{% url 'dashboard' %}" class="btn btn-outline">{% trans "Cancel" %}</a>
         </div>
     </form>
+
+    <script>
+        document.getElementById('new-dream-form').addEventListener('submit', function () {
+            var btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ {% trans "Analyzing..." %}';
+        });
+    </script>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}  <!-- Add this to enable translations -->
+{% load i18n %}
 
 {% block title %}{% trans "My Dreams" %}{% endblock %}
 
@@ -7,14 +7,40 @@
 <div class="card">
     <h1>{% trans "My Dreams" %}</h1>
 
+    <!-- Search form -->
+    <form method="get" class="search-form">
+        <div class="search-input-wrapper">
+            <span class="search-icon"></span>
+            <input
+                type="text"
+                name="q"
+                value="{{ search_query }}"
+                placeholder="{% trans 'Search dreams by title or description...' %}"
+                class="search-input"
+                autocomplete="off"
+            >
+            {% if search_query %}
+                <a href="{% url 'dreams_app:my_dreams' %}" class="search-clear">✕</a>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+    </form>
+
+    <!-- Search results info -->
+    {% if search_query %}
+        <p class="search-results-info">
+            {% trans "Results for" %} "<strong>{{ search_query }}</strong>": {{ dreams|length }} {% trans "found" %}
+        </p>
+    {% endif %}
+
     {% if dreams %}
         <div class="dream-list">
             {% for dream in dreams %}
                 <div class="dream-item">
                     <h3>{{ dream.name }}</h3>
                     <div class="dream-meta">
-                        <span>📅 {{ dream.created_at|date:"F j, Y" }}</span>
-                        <span>⏰ {{ dream.created_at|date:"g:i A" }}</span>
+                        <span> {{ dream.created_at|date:"F j, Y" }}</span>
+                        <span> {{ dream.created_at|date:"g:i A" }}</span>
                     </div>
 
                     {% if dream.analysis_text %}
@@ -34,8 +60,13 @@
         </div>
     {% else %}
         <div class="text-center mt-3">
-            <p class="mb-2">{% trans "You have no dreams recorded yet." %}</p>
-            <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary">{% trans "Record Your First Dream" %}</a>
+            {% if search_query %}
+                <p class="mb-2">{% trans "No dreams found matching your search." %}</p>
+                <a href="{% url 'dreams_app:my_dreams' %}" class="btn btn-outline">{% trans "Clear Search" %}</a>
+            {% else %}
+                <p class="mb-2">{% trans "You have no dreams recorded yet." %}</p>
+                <a href="{% url 'dreams_app:new_dream' %}" class="btn btn-primary">{% trans "Record Your First Dream" %}</a>
+            {% endif %}
         </div>
     {% endif %}
 
@@ -43,4 +74,81 @@
         <a href="{% url 'dashboard' %}" class="btn btn-outline">← {% trans "Back to Dashboard" %}</a>
     </div>
 </div>
+
+<style>
+    .search-form {
+        display: flex;
+        gap: 0.75rem;
+        margin: 1.5rem 0 1rem;
+        align-items: center;
+    }
+
+    .search-input-wrapper {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 1rem;
+        font-size: 1rem;
+        pointer-events: none;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 0.75rem 2.5rem 0.75rem 2.75rem;
+        border: 2px solid var(--border);
+        border-radius: var(--radius);
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        transition: var(--transition);
+        background: var(--background);
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(74, 59, 140, 0.1);
+        background: var(--white);
+    }
+
+    .search-clear {
+        position: absolute;
+        right: 0.75rem;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.25rem;
+        line-height: 1;
+        transition: var(--transition);
+    }
+
+    .search-clear:hover {
+        color: var(--danger);
+    }
+
+    .search-results-info {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
+        background: rgba(74, 59, 140, 0.05);
+        border-radius: var(--radius);
+        border-left: 3px solid var(--primary);
+    }
+
+    @media (max-width: 768px) {
+        .search-form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-form .btn {
+            width: 100%;
+        }
+    }
+</style>
 {% endblock %}

@@ -20,10 +20,18 @@ def analyze_dream(dream_text: str) -> str:
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a dream analysis assistant. Be helpful and non-judgmental."},
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a dream analysis assistant. Be helpful and non-judgmental. "
+                        "Write your analysis in 3-4 short paragraphs. "
+                        "Always finish every sentence completely — never leave a thought unfinished. "
+                        "Keep the total response under 220 words."
+                    )
+                },
                 {"role": "user", "content": dream_text},
             ],
-            max_tokens=250,
+            max_tokens=350,
         )
         return response.choices[0].message.content
     except Exception as e:

@@ -4,6 +4,7 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db import transaction
+from django.db.models import Q
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
@@ -172,7 +173,18 @@ class DreamListView(LoginRequiredMixin, ListView):
     context_object_name = "dreams"
 
     def get_queryset(self):
-        return Dream.objects.filter(user=self.request.user).order_by("-created_at")
+        queryset = Dream.objects.filter(user=self.request.user).order_by("-created_at")
+        query = self.request.GET.get("q", "").strip()
+        if query:
+            queryset = queryset.filter(
+                Q(name__icontains=query) | Q(text__icontains=query)
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_query"] = self.request.GET.get("q", "").strip()
+        return context
 
 
 # Dream detail
