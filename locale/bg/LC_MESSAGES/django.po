@@ -255,6 +255,9 @@ msgstr "Резултати от"
 msgid "found"
 msgstr "намерени"
 
+msgid "Saving..."
+msgstr "Запазване..."
+
 msgid "Login here"
 msgstr "Влизаве в профила"
 
