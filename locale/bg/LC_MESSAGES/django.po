@@ -249,6 +249,18 @@ msgstr "Промени сън"
 msgid "Yes, Delete Dream"
 msgstr "Да, изтрии съня"
 
+msgid "Results for"
+msgstr "Резултати от"
+
+msgid "found"
+msgstr "намерени"
+
+msgid "Clear Search"
+msgstr "Истрии историята"
+
+msgid "No dreams found matching your search."
+msgstr "Няма намерени сънища, съответстващи на вашето търсене."
+
 msgid "Add and analyze a new dream"
 msgstr "Добави и анализирай нов сън"
 
