@@ -255,6 +255,21 @@ msgstr "Резултати от"
 msgid "found"
 msgstr "намерени"
 
+msgid "Login here"
+msgstr "Влизаве в профила"
+
+msgid "Already have an account?"
+msgstr "Вече имате профил?"
+
+msgid "Create Account"
+msgstr "Направете си профил"
+
+msgid "Record Your First Dream"
+msgstr "Запишете първия си сън"
+
+msgid "You have no dreams recorded yet."
+msgstr "Нямате записани сънища все още"
+
 msgid "Clear Search"
 msgstr "Истрии историята"
 
