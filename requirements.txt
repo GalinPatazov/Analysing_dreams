@@ -6,7 +6,9 @@ charset-normalizer==3.4.4
 colorama==0.4.6
 distro==1.9.0
 Django==6.0
+dj-database-url==3.0.1
 googletrans==4.0.2
+gunicorn==23.0.0
 h11==0.16.0
 h2==4.3.0
 hpack==4.1.0
@@ -31,3 +33,4 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2025.3
 urllib3==2.6.3
+whitenoise==6.11.0
