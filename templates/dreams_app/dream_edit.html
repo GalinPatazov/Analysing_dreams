@@ -31,8 +31,8 @@
             </div>
 
             <div class="btn-row">
-                <button type="submit" id="edit-submit-btn" class="btn btn-primary">
-                    {% trans "Update Dream" %}
+                <button type="submit" id="edit-submit-btn" class="btn btn-primary" data-loading-text="{% trans 'Saving...' %}">
+                    <span class="btn-label">{% trans "Update Dream" %}</span>
                 </button>
                 <a href="{% url 'dreams_app:detail' object.id %}" class="btn btn-outline">
                     {% trans "Cancel" %}
@@ -44,10 +44,23 @@
         </form>
 
         <script>
-            document.getElementById('edit-dream-form').addEventListener('submit', function () {
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.getElementById('edit-dream-form');
                 var btn = document.getElementById('edit-submit-btn');
-                btn.disabled = true;
-                btn.textContent = '⏳ {% trans "Saving..." %}';
+                if (!form || !btn) {
+                    return;
+                }
+
+                form.addEventListener('submit', function () {
+                    if (btn.disabled) {
+                        return;
+                    }
+
+                    btn.disabled = true;
+                    btn.classList.add('is-loading');
+                    btn.setAttribute('aria-busy', 'true');
+                    btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span><span class="btn-label">' + btn.dataset.loadingText + '</span>';
+                });
             });
         </script>
     </div>

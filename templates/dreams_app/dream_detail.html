@@ -41,7 +41,7 @@
     <div class="mt-3">
         <h3>{% trans "Dream Visualization" %}</h3>
         {% if dream.image %}
-            <img src="{{ dream.image.url }}"
+            <img src="{% url 'dreams_app:dream_image' dream.pk %}"
                  alt="{% trans 'Dream visualization' %}"
                  class="dream-image">
         {% else %}

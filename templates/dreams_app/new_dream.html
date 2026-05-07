@@ -22,16 +22,31 @@
         </div>
 
         <div class="dream-actions">
-            <button type="submit" id="submit-btn" class="btn btn-primary">✨ {% trans "Analyze Dream" %}</button>
+            <button type="submit" id="submit-btn" class="btn btn-primary" data-loading-text="{% trans 'Analyzing...' %}">
+                <span class="btn-label">✨ {% trans "Analyze Dream" %}</span>
+            </button>
             <a href="{% url 'dashboard' %}" class="btn btn-outline">{% trans "Cancel" %}</a>
         </div>
     </form>
 
     <script>
-        document.getElementById('new-dream-form').addEventListener('submit', function () {
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('new-dream-form');
             var btn = document.getElementById('submit-btn');
-            btn.disabled = true;
-            btn.textContent = '⏳ {% trans "Analyzing..." %}';
+            if (!form || !btn) {
+                return;
+            }
+
+            form.addEventListener('submit', function () {
+                if (btn.disabled) {
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.classList.add('is-loading');
+                btn.setAttribute('aria-busy', 'true');
+                btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span><span class="btn-label">' + btn.dataset.loadingText + '</span>';
+            });
         });
     </script>
 </div>

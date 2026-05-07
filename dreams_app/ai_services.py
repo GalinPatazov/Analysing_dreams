@@ -1,3 +1,4 @@
+import base64
 import re
 import requests
 from openai import OpenAI
@@ -55,12 +56,28 @@ def _sanitize_dream_text(text: str) -> str:
     return t
 
 
-def generate_dream_image(dream_text: str):
+def _image_bytes_from_response(response):
+    image = response.data[0]
+    if getattr(image, "b64_json", None):
+        return base64.b64decode(image.b64_json)
+    if getattr(image, "url", None):
+        return requests.get(image.url, timeout=30).content
+    return None
+
+
+def generate_dream_image(dream_text: str, dream_title: str = ""):
     """
     1) Ask GPT to convert the dream into a safe visual prompt (keeps meaning, removes disallowed content)
     2) Generate image from that prompt
-    3) If still blocked, use a generic fallback
+    3) If dream-based generation fails, return None instead of showing an unrelated generic image
     """
+    if not settings.OPENAI_API_KEY:
+        return None
+
+    sanitized_text = _sanitize_dream_text(dream_text)
+    title = (dream_title or "").strip()
+    dream_context = f"Title: {title}\nDream: {sanitized_text}" if title else sanitized_text
+
     # Step A: make a safe visual prompt using GPT (very important)
     try:
         prompt_resp = client.chat.completions.create(
@@ -71,16 +88,18 @@ def generate_dream_image(dream_text: str):
                     "content": (
                         "You convert dream descriptions into SAFE image prompts.\n"
                         "Rules:\n"
-                        "- Keep the dream's main symbols, mood, setting.\n"
+                        "- Ground the image in the specific dream. Keep the main place, objects, actions, mood, and symbols.\n"
+                        "- Do not replace the dream with a generic fantasy scene.\n"
+                        "- If a detail is unsafe, replace only that detail with a symbolic, non-graphic equivalent.\n"
                         "- Remove/avoid: nudity, sexual content, minors, self-harm, graphic violence, blood/gore.\n"
                         "- Do NOT include real people, celebrities, or identifying details.\n"
                         "- Do NOT include any text to be written in the image.\n"
-                        "- Output ONLY the final image prompt, 2-4 sentences."
+                        "- Output ONLY the final image prompt, 2-3 sentences."
                     )
                 },
-                {"role": "user", "content": dream_text}
+                {"role": "user", "content": dream_context}
             ],
-            max_tokens=500,
+            max_tokens=350,
         )
         safe_visual_prompt = prompt_resp.choices[0].message.content.strip()
     except Exception as e:
@@ -88,52 +107,40 @@ def generate_dream_image(dream_text: str):
         safe_visual_prompt = None
 
     # Add a safety wrapper always
+    style = (
+        "Draw a surreal dreamlike digital illustration, PG-13, no text, no captions, "
+        "no logos, no watermarks, no nudity, no blood or injuries, do not depict real people. "
+        "The image must clearly include the concrete visual details from the dream, not a generic dreamscape."
+    )
     if safe_visual_prompt:
-        final_prompt = (
-            "Surreal dreamlike digital illustration, PG-13. "
-            "No text, no captions, no logos, no watermarks. "
-            "No nudity. No blood or injuries. "
-            "Do not depict real people.\n"
-            f"Scene: {safe_visual_prompt}"
-        )
+        final_prompt = f"{style}\nScene: {safe_visual_prompt}"
     else:
         # If rewrite failed, fallback to a mild wrapper of the original
-        final_prompt = (
-            "Surreal dreamlike digital illustration, PG-13. "
-            "No text, no captions, no logos. No nudity. No gore. "
-            "Do not depict real people.\n"
-            f"Scene: {dream_text[:600]}"
-        )
+        final_prompt = f"{style}\nScene: {dream_context[:700]}"
 
     # Step B: Try to generate using rewritten prompt
     try:
         response = client.images.generate(
-            model="dall-e-3",
+            model="gpt-image-1",
             prompt=final_prompt,
             size="1024x1024",
+            quality="medium",
             n=1,
         )
-        image_url = response.data[0].url
-        return requests.get(image_url, timeout=30).content
+        return _image_bytes_from_response(response)
 
     except Exception as e:
-        print("AI IMAGE ERROR (dream-based attempt):", e)
+        print("AI IMAGE ERROR (gpt-image-1):", e)
 
-        # Step C: Only now use generic fallback (last resort)
-        fallback_prompt = (
-            "Surreal abstract dreamscape digital illustration: floating islands, moonlit clouds, "
-            "impossible architecture, soft fog, cinematic lighting, highly detailed. "
-            "No people. No text. No logos. PG-13."
-        )
+        # Compatibility fallback for accounts that cannot use GPT Image yet.
         try:
             response = client.images.generate(
                 model="dall-e-3",
-                prompt=fallback_prompt,
+                prompt=final_prompt,
                 size="1024x1024",
                 n=1,
             )
-            image_url = response.data[0].url
-            return requests.get(image_url, timeout=30).content
+            return _image_bytes_from_response(response)
         except Exception as e2:
-            print("AI IMAGE ERROR (fallback):", e2)
+            print("AI IMAGE ERROR (dall-e-3):", e2)
             return None

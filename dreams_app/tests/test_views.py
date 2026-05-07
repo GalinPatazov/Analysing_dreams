@@ -86,7 +86,7 @@ class DreamViewTests(TestCase):
 
         mock_consume.assert_called_once()
         mock_analyze_dream.assert_called_once_with("I was in a forest.")
-        mock_generate_image.assert_called_once_with("I was in a forest.")
+        mock_generate_image.assert_called_once_with("I was in a forest.", "New dream")
 
     def test_delete_dream_by_owner(self):
         self.client.login(username="charlie", password="testpass123")
@@ -132,4 +132,4 @@ class DreamViewTests(TestCase):
 
         mock_consume.assert_called_once()
         mock_analyze_dream.assert_called_once_with("A stormy ocean dream.")
-        mock_generate_image.assert_called_once_with("A stormy ocean dream.")
+        mock_generate_image.assert_called_once_with("A stormy ocean dream.", "Ocean updated")

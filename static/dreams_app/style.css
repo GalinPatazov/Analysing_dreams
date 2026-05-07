@@ -146,7 +146,10 @@ p {
 
 /* ===== BUTTONS ===== */
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
     text-decoration: none;
@@ -156,6 +159,35 @@ p {
     border: 2px solid transparent;
     font-family: 'Poppins', sans-serif;
     text-align: center;
+}
+
+.btn:disabled,
+.btn.is-loading {
+    cursor: wait;
+    opacity: 0.78;
+    transform: none;
+}
+
+.btn:disabled:hover,
+.btn.is-loading:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-top-color: var(--white);
+    border-radius: 50%;
+    flex: 0 0 auto;
+    animation: btn-spin 0.8s linear infinite;
+}
+
+@keyframes btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .btn-primary {

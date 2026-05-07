@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.http import Http404
+from django.http import FileResponse, Http404
 from django.core.files.base import ContentFile
 from django.contrib.auth.decorators import login_required
 
@@ -80,7 +80,7 @@ class DreamCreateView(LoginRequiredMixin, CreateView):
         dream.analysis_text = analyze_dream(dream.text)
 
         # 2) Generate image (bytes) with safety + fallback inside ai_services.py
-        image_bytes = generate_dream_image(dream.text)
+        image_bytes = generate_dream_image(dream.text, dream.name)
 
         # 3) Save image properly (or show warning)
         if image_bytes:
@@ -134,7 +134,7 @@ class DreamUpdateView(LoginRequiredMixin, UpdateView):
             dream.analysis_text = analyze_dream(dream.text)
 
             # 2) Regenerate Image
-            image_bytes = generate_dream_image(dream.text)
+            image_bytes = generate_dream_image(dream.text, dream.name)
             if image_bytes:
                 # Delete old image file if it exists to avoid clutter
                 if dream.image:
@@ -200,6 +200,18 @@ def dream_detail(request, pk):
         "dreams_app/dream_detail.html",
         {"dream": dream, "is_favorite": is_favorite},
     )
+
+
+@login_required
+def dream_image(request, pk):
+    dream = get_object_or_404(Dream, pk=pk, user=request.user)
+    if not dream.image:
+        raise Http404("This dream does not have an image")
+
+    try:
+        return FileResponse(dream.image.open("rb"), content_type="image/png")
+    except FileNotFoundError:
+        raise Http404("This dream image is unavailable")
 
 
 @login_required

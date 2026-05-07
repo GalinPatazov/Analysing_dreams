@@ -238,7 +238,7 @@ msgid "Analyze Dream"
 msgstr "Анализирай съня"
 
 msgid "Analyzing..."
-msgstr "Анализирине..."
+msgstr "Анализиране..."
 
 msgid "Dream Title"
 msgstr "Заглавие на съня"
